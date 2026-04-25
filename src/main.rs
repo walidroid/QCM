@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 slint::slint! {
     import { VerticalBox, HorizontalBox } from "std-widgets.slint";
 
