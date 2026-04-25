@@ -1,0 +1,25 @@
+name: Build Windows EXE
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build App
+        run: cargo build --release
+        working-directory: ./qcm_app
+        
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: QCM-App-Windows
+          path: qcm_app/target/release/qcm_app.exe
