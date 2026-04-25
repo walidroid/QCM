@@ -263,7 +263,7 @@ fn get_questions() -> Vec<Question> {
 
 fn main() -> Result<(), slint::PlatformError> {
     let app = App::new()?;
-    let questions = get_questions();
+    let questions = std::rc::Rc::new(get_questions());
     
     app.set_question_text(questions[0].text.into());
     app.set_opt_a(questions[0].options[0].into());
@@ -285,12 +285,13 @@ fn main() -> Result<(), slint::PlatformError> {
     });
 
     let app_weak2 = app.as_weak();
+    let questions2 = std::rc::Rc::clone(&questions);
     app.on_next_clicked(move || {
         if let Some(app) = app_weak2.upgrade() {
             let current = app.get_current_q() as usize;
             
-            if current < questions.len() {
-                let next_q = &questions[current];
+            if current < questions2.len() {
+                let next_q = &questions2[current];
                 app.set_question_text(next_q.text.into());
                 app.set_opt_a(next_q.options[0].into());
                 app.set_opt_b(next_q.options[1].into());
@@ -305,6 +306,7 @@ fn main() -> Result<(), slint::PlatformError> {
     });
 
     let app_weak3 = app.as_weak();
+    let questions3 = std::rc::Rc::clone(&questions);
     app.on_restart_clicked(move || {
         if let Some(app) = app_weak3.upgrade() {
             app.set_score(0);
@@ -312,7 +314,7 @@ fn main() -> Result<(), slint::PlatformError> {
             app.set_show_results(false);
             app.set_selected_idx(-1);
             
-            let first_q = &questions[0];
+            let first_q = &questions3[0];
             app.set_question_text(first_q.text.into());
             app.set_opt_a(first_q.options[0].into());
             app.set_opt_b(first_q.options[1].into());
