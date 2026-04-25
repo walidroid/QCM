@@ -1,0 +1,28 @@
+name: Build Windows EXE
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-tauri:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Tauri CLI
+        run: cargo install tauri-cli --version "^1.0.0"
+
+      - name: Build Tauri App
+        run: cargo tauri build
+        working-directory: ./src-tauri
+        
+      - name: Upload EXE
+        uses: actions/upload-artifact@v3
+        with:
+          name: QCM-App-Windows
+          path: src-tauri/target/release/bundle/msi/*.msi

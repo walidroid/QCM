@@ -1,0 +1,58 @@
+{
+  "build": {
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "",
+    "devPath": "../src",
+    "distDir": "../src"
+  },
+  "package": {
+    "productName": "QCM App",
+    "version": "0.1.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false
+    },
+    "bundle": {
+      "active": true,
+      "category": "Education",
+      "copyright": "",
+      "deb": {
+        "depends": []
+      },
+      "externalBin": [],
+      "identifier": "com.qcm.app",
+      "longDescription": "",
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "resources": [],
+      "shortDescription": "",
+      "targets": "all",
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
+    },
+    "security": {
+      "csp": null
+    },
+    "updater": {
+      "active": false
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "height": 650,
+        "resizable": true,
+        "title": "QCM Python - 2\u00e8me Sciences",
+        "width": 800
+      }
+    ]
+  }
+}
