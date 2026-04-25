@@ -240,6 +240,6 @@ fn main() -> eframe::Result<()> {
     eframe::run_native(
         "QCM Python",
         options,
-        Box::new(|cc| Ok(Box::new(QcmApp::new(cc)))),
+        Box::new(|cc| Box::new(QcmApp::new(cc)) as Box<dyn eframe::App>),
     )
 }
