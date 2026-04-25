@@ -11,15 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-      - name: Build App
-        run: cargo build --release
-        working-directory: ./qcm_app
+      - name: Publish App
+        run: dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+        working-directory: ./QcmApp
         
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
           name: QCM-App-Windows
-          path: qcm_app/target/release/qcm_app.exe
+          path: QcmApp/bin/Release/net8.0-windows/win-x64/publish/QcmApp.exe
